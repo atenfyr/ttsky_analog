@@ -1,9 +1,9 @@
 # Tiny Tapeout project information
 project:
-  title:        "Analog Characterization Platform"      # Project title
+  title:        "Configurable Self-biasing Miller-compensated OTA"      # Project title
   author:       "atenfyr"      # Your name
   discord:      "atenfyr"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "A fully-custom analog characterization platform for the SKY130 process"      # One line description of what your project does
+  description:  "A single-ended two-stage Miller-compensated OTA with a self-biasing beta multiplier current reference circuit and configurable compensation on SKY 130nm"      # One line description of what your project does
   language:     "Analog" # other examples include Verilog, Amaranth, VHDL, etc
   clock_hz:     1000       # Clock frequency in Hz (or 0 if not applicable)
 
@@ -25,17 +25,17 @@ project:
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: "Analog output mode 0"
-  ui[1]: "Analog output mode 1"
-  ui[2]: "Analog output mode 2"
-  ui[3]: "Analog output mode 3"
-  ui[4]: "Analog input 1 mode 0"
-  ui[5]: "Analog input 1 mode 1"
-  ui[6]: "Analog input 2 mode 0"
-  ui[7]: "Analog input 2 mode 1"
+  ui[0]: "COMP_S0"
+  ui[1]: "COMP_S1"
+  ui[2]: ""
+  ui[3]: ""
+  ui[4]: ""
+  ui[5]: ""
+  ui[6]: ""
+  ui[7]: ""
 
   # Outputs
-  uo[0]: "Heartbeat"
+  uo[0]: "BEAT"
   uo[1]: ""
   uo[2]: ""
   uo[3]: ""
@@ -45,19 +45,19 @@ pinout:
   uo[7]: ""
 
   # Bidirectional pins
-  uio[0]: "Mux bypass mode"
-  uio[1]: "Bias current mode"
-  uio[2]: "Output buffer mode"
-  uio[3]: "Sense voltage load mode"
-  uio[4]: "DAC 0"
-  uio[5]: "DAC 1"
-  uio[6]: "DAC 2"
-  uio[7]: "DAC 3"
+  uio[0]: ""
+  uio[1]: ""
+  uio[2]: ""
+  uio[3]: ""
+  uio[4]: ""
+  uio[5]: ""
+  uio[6]: ""
+  uio[7]: ""
 
   # Analog pins - make sure to also set "analog_pins" above, else the pins won't be connected
-  ua[0]: "Analog output"
-  ua[1]: "Analog input 1"
-  ua[2]: "Analog input 2"
+  ua[0]: "OUT"
+  ua[1]: "IN+"
+  ua[2]: "IN-"
   ua[3]: ""
   ua[4]: ""
   ua[5]: ""
