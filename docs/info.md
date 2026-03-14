@@ -35,9 +35,9 @@ This project is a single-ended two-stage Miller-compensated OTA with a self-bias
 
 | Name | Min | Max | Unit |
 | --- | --- | --- | --- |
-| Supply voltage, VDD | 0 | 1.8 | V |
-| Supply voltage, VSS | 0 | 1.8 | V |
-| Input voltage, any input | 0 | 1.8 | V |
+| Supply voltage, VDD | 0 | 1.95 | V |
+| Supply voltage, VSS | 0 | 1.95 | V |
+| Input voltage, any input | 0 | 1.95 | V |
 | Operating temperature | -100 | 100 | °C |
 
 #### Recommended Operating Conditions
