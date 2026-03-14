@@ -38,7 +38,7 @@ This project is a single-ended two-stage Miller-compensated OTA with a self-bias
 | Supply voltage, VDD | 0 | 1.95 | V |
 | Supply voltage, VSS | 0 | 1.95 | V |
 | Input voltage, any input | 0 | 1.95 | V |
-| Operating temperature | -100 | 100 | °C |
+| Operating temperature | -40 | 100 | °C |
 
 #### Recommended Operating Conditions
 
@@ -46,11 +46,11 @@ This project is a single-ended two-stage Miller-compensated OTA with a self-bias
 | --- | --- | --- | --- |
 | Supply voltage, VDD | 1.65 | 1.95 | V |
 | Supply voltage, VSS | 0 | 0 | V |
-| Operating temperature | -100 | 100 | °C |
+| Operating temperature | -40 | 85 | °C |
 
 #### Electrical Characteristics
 
-All reported characteristics are based on pre-layout simulations across PVT corners with COMP_S1 = COMP_S0 = 0 and a temperature range from -100 C to 100 C. Input values and temperatures outside of this range may cause values beyond the minimum or maximum values provided below.
+All reported characteristics are based on pre-layout simulations across PVT corners with COMP_S1 = COMP_S0 = 0 and a temperature range from -40 C to 100 C. Input values and temperatures outside of this range may cause values beyond the minimum or maximum values provided below.
 
 | Name | Test Condition | Min | Typ. | Max | Unit |
 | --- | --- | --- | --- | --- | --- |
