@@ -22,7 +22,7 @@ I used Magic VLSI for initial layout import, LEF export, and occasional workarou
         * `sudo add-apt-repository ppa:deadsnakes/ppa`
         * `sudo apt install python3.14`
     * `python3.14 -m pip install volare`
-    * `export PDK_ROOT=~/.pdks`
+    * `export PDK_ROOT=~/.pdks`. You should also include this line in your .bashrc file or similar
     * `volare ls-remote --pdk sky130` to view a list of version hashes
     * `volare enable --pdk sky130 <version_hash>`
         * I used `0fe599b2afb6708d281543108caf8310912f54af`
