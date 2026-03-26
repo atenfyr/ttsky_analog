@@ -59,7 +59,7 @@ All reported characteristics are based on pre-layout simulations across PVT corn
 | Avo, small-signal differential voltage amplification | Vin,cm = 900 mV, full temp. range | 1 | 4.5 |  | V/mV |
 | gm, small-signal differential transconductance | Vin,cm = 900 mV, RL = 10 kΩ, full temp. range | 50 | 200 |  | mS |
 | GBW, gain-bandwidth product | measured at corner frequency, full temp. range | 5 | 20 | 30 | MHz |
-| PM, phase margin | measured at unity-gain bandwidth, full temp. range | 35 | 50 |  | ° |
+| PM, phase margin | measured at unity-gain bandwidth, full temp. range, C_L = 10 pF | 35 | 50 |  | ° |
 | ro, small-signal output resistance | full temp. range | 1 | 6 | 12 | kΩ |
 | CMRR, common-mode rejection ratio | full temp. range | 50 | 70 | | dB |
 | PSRR+, power supply rejection ratio (VDD) | VDD = 1.8 V, full temp. range | 45 | 80 | | dB |
