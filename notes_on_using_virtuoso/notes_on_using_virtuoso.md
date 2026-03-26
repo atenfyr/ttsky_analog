@@ -31,7 +31,7 @@ I used Magic VLSI for initial layout import, LEF export, and occasional workarou
 
 ### Cadence Virtuoso setup
 
-Note that the following steps do require an existing license and installation of Cadence Virtuoso. Cadence Pegasus and Quantus existing licenses and installaiton are recommended as well to perform DRC/LVS/parasitic extraction within Virtuoso.
+Note that the following steps do require an existing license and installation of Cadence Virtuoso. Existing licenses and installation for Cadence Pegasus and Quantus are recommended as well to perform DRC/LVS/parasitic extraction within Virtuoso.
 
 1. Download the SKY130 PDK for Cadence Virtuoso from Cadence support (sky130_release_0.1.0.tgz). You will need to create a free account with Cadence to access the PDK. https://support.cadence.com/apex/ArticleAttachmentPortal?id=a1Od000000051TqEAI&pageName=ArticleContent
 
@@ -41,11 +41,21 @@ Note that the following steps do require an existing license and installation of
 3. Set up the appropriate shell script within the extracted sky130_release_0.1.0 directory for opening Cadence Virtuoso. This may be based on existing shell scripts for other PDKs. You also need to set a few different variables so that Virtuoso can recognize your copies of Pegasus and Quantus, if installed. For tcsh scripts, you can include the following lines (modified as needed) in your shell script to set up Pegasus and Quantus:
 
     ```
-        setenv PEGASUS_DRC /path/to/your/sky130_release_0.1.0/Sky130_DRC
-        setenv PEGASUS_LVS /path/to/your/sky130_release_0.1.0/Sky130_LVS
+    setenv PEGASUS_DRC /path/to/your/sky130_release_0.1.0/Sky130_DRC
+    setenv PEGASUS_LVS /path/to/your/sky130_release_0.1.0/Sky130_LVS
 
-        setenv PATH /path/to/your/installation/of/QUANTUS241/bin:/path/to/your/installation/of/PEGASUS232/bin:$PATH
+    setenv PATH /path/to/your/installation/of/QUANTUS241/bin:/path/to/your/installation/of/PEGASUS232/bin:$PATH
     ```
+
+    For a bash script, something like this could work (untested):
+
+    ```
+    export PEGASUS_DRC=/path/to/your/sky130_release_0.1.0/Sky130_DRC
+    export PEGASUS_LVS=/path/to/your/sky130_release_0.1.0/Sky130_LVS
+
+    export PATH=/path/to/your/installation/of/QUANTUS241/bin:/path/to/your/installation/of/PEGASUS232/bin:$PATH
+    ```
+
 
 4. Execute your shell script to open Cadence Virtuoso.
 
