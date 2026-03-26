@@ -83,7 +83,7 @@ All reported characteristics are based on pre-layout simulations across PVT corn
 
 ### Layout
 
-![](final_1.png)
+![](annotated.png)
 
 ![](final_2.png)
 
