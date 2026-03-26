@@ -15,8 +15,7 @@ MACRO tt_um_analog_atenfyr1
     END
   END VGND
   PIN VDPWR
-    ANTENNAGATEAREA 49.625999 ;
-    ANTENNADIFFAREA 194.192902 ;
+    USE POWER ;
     PORT
       LAYER met4 ;
         RECT 1.000 5.000 3.000 220.760 ;
