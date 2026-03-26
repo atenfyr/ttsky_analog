@@ -35,10 +35,10 @@ I used Magic VLSI for initial layout import, LEF export, and occasional workarou
 
 Note that the following steps do require an existing license and installation of Cadence Virtuoso. Existing licenses and installation for Cadence Pegasus and Quantus are recommended as well to perform DRC/LVS/parasitic extraction within Virtuoso.
 
-1. Download the SKY130 PDK for Cadence Virtuoso from Cadence support (sky130_release_0.1.0.tgz). You will need to create a free account with Cadence to access the PDK. https://support.cadence.com/apex/ArticleAttachmentPortal?id=a1Od000000051TqEAI&pageName=ArticleContent
+1. Download the SKY130 PDK for Cadence Virtuoso from Cadence support (sky130_release_0.1.0.tgz). You can also download the standard cell library if you would like (sky130_scl_9T_0.1.2, optional). You will need to create a free account with Cadence to access the PDK. https://support.cadence.com/apex/ArticleAttachmentPortal?id=a1Od000000051TqEAI&pageName=ArticleContent
 
 2. Upload the downloaded .tgz file(s) to the server that Cadence Virtuoso is installed on, and extract them:
-    `tar -xzvf *.tgz`
+    `tar -xzvf sky130_release*.tgz`
 
 3. Set up the appropriate shell script within the extracted sky130_release_0.1.0 directory for opening Cadence Virtuoso. This probably should be based on existing shell scripts for other PDKs. You also need to set a few different variables so that Virtuoso can recognize your copies of Pegasus and Quantus, if installed. For tcsh scripts, you can include the following lines (modified as needed) in your shell script to set up Pegasus and Quantus:
 
@@ -58,18 +58,17 @@ Note that the following steps do require an existing license and installation of
     export PATH=/path/to/your/installation/of/QUANTUS241/bin:/path/to/your/installation/of/PEGASUS232/bin:$PATH
     ```
 
-
-4. Execute your shell script to open Cadence Virtuoso.
-
-5. Close Cadence Virtuoso and add the following line to your cds.lib file:
+4. Optional: If you would also like to include the standard cells, I would suggest to extract your downloaded copy of `sky130_scl_9T_0.1.2.tgz` (or similar) in the existing "lib" directory within your SKY130 installation, and add the following lines to cds.lib before opening Virtuoso:
 
     ```
-    DEFINE sky130_fd_pr_main ./libs/sky130_fd_pr_main
-    ````
+    DEFINE sky130_scl_9T ./libs/sky130_scl_9T_0.1.1/sky130_scl_9T/oa/sky130_scl_9T
+    DEFINE sky130_scl_9T_HS ./libs/sky130_scl_9T_0.1.1/sky130_scl_9T_HS/oa/sky130_scl_9T_HS
+    DEFINE sky130_scl_9T_LP ./libs/sky130_scl_9T_0.1.1/sky130_scl_9T_LP/oa/sky130_scl_9T_LP
+    ```
 
-6. Execute your shell script again to re-open Cadence Virtuoso. You should now be able to see the sky130_fd_pr_main library in the Library Manager (Tools -> Library Manager).
+5. Execute your shell script to open Cadence Virtuoso. You should now be able to see the sky130_fd_pr_main library in the Library Manager (Tools -> Library Manager).
 
-7. You can create new libraries as normal; make sure to select "Attach to an existing technology library" and choose "sky130_fd_pr_main" when creating a new library. In Layout L/XL, you should be able to see new tabs called "Pegasus" and "Quantus" if Virtuoso was able to find these software.
+6. You can create new libraries as normal; make sure to select "Attach to an existing technology library" and choose "sky130_fd_pr_main" when creating a new library. In Layout L/XL, you should be able to see new tabs called "Pegasus" and "Quantus" if Virtuoso was able to find these software.
 
 #### Pegasus setup (DRC)
 To set up Pegasus for DRC:
