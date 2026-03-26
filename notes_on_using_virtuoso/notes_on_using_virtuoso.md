@@ -37,7 +37,7 @@ Note that the following steps do require an existing license and installation of
 
 1. Download the SKY130 PDK for Cadence Virtuoso from Cadence support (sky130_release_0.1.0.tgz). You can also download the standard cell library if you would like (sky130_scl_9T_0.1.2, optional). You will need to create a free account with Cadence to access the PDK. https://support.cadence.com/apex/ArticleAttachmentPortal?id=a1Od000000051TqEAI&pageName=ArticleContent
 
-2. Upload the downloaded .tgz file(s) to the server that Cadence Virtuoso is installed on, and extract them:
+2. Upload the downloaded .tgz file to the server that Cadence Virtuoso is installed on, and extract them:
     `tar -xzvf sky130_release*.tgz`
 
 3. Set up the appropriate shell script within the extracted sky130_release_0.1.0 directory for opening Cadence Virtuoso. This probably should be based on existing shell scripts for other PDKs. You also need to set a few different variables so that Virtuoso can recognize your copies of Pegasus and Quantus, if installed. For tcsh scripts, you can include the following lines (modified as needed) in your shell script to set up Pegasus and Quantus:
