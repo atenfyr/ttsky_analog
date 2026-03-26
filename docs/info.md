@@ -58,9 +58,9 @@ All reported characteristics are based on pre-layout simulations across PVT corn
 | Vos, maximum peak-to-peak output voltage swing | Vo,DC = 900 mV, THD < 5%, full supply voltage range, full temp. range | 0.7 | 1.3 | | V |
 | Avo, small-signal differential voltage amplification | Vin,cm = 900 mV, full temp. range | 1 | 4.5 |  | V/mV |
 | gm, small-signal differential transconductance | Vin,cm = 900 mV, RL = 10 kΩ, full temp. range | 50 | 200 |  | mS |
-| GBW, gain-bandwidth product | measured at corner frequency, full temp. range | 10 | 20 | 30 | MHz |
-| PM, phase margin | measured at unity-gain bandwidth, full temp. range | 45 | 55 |  | ° |
-| ro, small-signal output resistance | full temp. range | 1 | 3.5 | 7 | kΩ |
+| GBW, gain-bandwidth product | measured at corner frequency, full temp. range | 5 | 20 | 30 | MHz |
+| PM, phase margin | measured at unity-gain bandwidth, full temp. range | 35 | 50 |  | ° |
+| ro, small-signal output resistance | full temp. range | 1 | 6 | 12 | kΩ |
 | CMRR, common-mode rejection ratio | full temp. range | 50 | 70 | | dB |
 | PSRR+, power supply rejection ratio (VDD) | VDD = 1.8 V, full temp. range | 45 | 80 | | dB |
 | PSRR-, power supply rejection ratio (VSS) | VSS = 0 V, full temp. range | 45 | 80 | | dB |
@@ -83,15 +83,13 @@ All reported characteristics are based on pre-layout simulations across PVT corn
 
 ### Layout
 
-WIP
+![](final_1.png)
+
+![](final_2.png)
 
 ## How to test
 
-WIP
-
-## External hardware
-
-N/A
+This OTA should be operated in a feedback configuration. One common configuration to verify basic operation could be to tie the inverting input (ua[2]) to the output (ua[0]) to create a unity-gain buffer, where any input signal fed into the non-inverting input (ua[1]) should be matched at the output. Gain-bandwidth product (GBW) can be estimated by finding the frequency at which the voltage gain begins to drop below 1 V/V in this configuraton.
 
 ## License
 
