@@ -7,7 +7,7 @@ Below are some of my notes on tricks and workarounds that I used for performing 
 I used Magic VLSI for initial layout import, LEF export, and occasional workarounds for bad standard cells. The following steps were performed on Ubuntu 24.04 (either WSL or natively should work).
 
 1. Download pre-requisites for building Magic VLSI:
-    * `sudo apt update && sudo apt install m4 tcsh csh libx11-dev tcl-dev tk-dev libcairo2-dev libncurses-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev`
+    * `sudo apt update && sudo apt install m4 tcsh csh python libx11-dev tcl-dev tk-dev libcairo2-dev mesa-common-dev libgl-dev libglu1-mesa-dev zlib1g-dev libncurses-dev`
 
 2. Download and build Magic VLSI:
     * `git clone https://github.com/RTimothyEdwards/magic.git`
