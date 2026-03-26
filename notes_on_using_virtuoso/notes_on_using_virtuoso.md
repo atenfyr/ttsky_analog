@@ -17,17 +17,17 @@ I used Magic VLSI for initial layout import, LEF export, and occasional workarou
     * `sudo make install`
     * If needed, see more information here: https://opencircuitdesign.com/magic/install.html
 
-3. Install the SKY130 PDK through Volare:
-    * If needed, install Python 3.12:
+3. Install the SKY130 PDK through Volare by executing the following commands:
+    * If needed, install Python 3.14 (so that the copy of Python used to install volare is separate from your system's copy of Python):
         * `sudo add-apt-repository ppa:deadsnakes/ppa`
-        * `sudo apt install python3.12`
-    * `python -m pip install volare`
+        * `sudo apt install python3.14`
+    * `python3.14 -m pip install volare`
     * `export PDK_ROOT=~/.pdks`
     * `volare ls-remote --pdk sky130` to view a list of version hashes
     * `volare enable --pdk sky130 <version_hash>`
         * I used `0fe599b2afb6708d281543108caf8310912f54af`
     * `ln -s $PDK_ROOT/sky130A/libs.tech/magic/sky130A.magicrc .magicrc` to create a symlink for the PDK's .magicrc file in the current directory (navigate first to a desired working directory)
-    * `magic` to open Magic in the current directory; if you see "Technology: sky130A" at the top of the screen, then you were successful
+    * `magic` to open Magic in the current directory. If you see "Technology: sky130A" at the top of the screen, then you were successful
 
 ### Cadence Virtuoso setup
 
@@ -51,7 +51,9 @@ Note that the following steps do require an existing license and installation of
 
 5. Close Cadence Virtuoso and add the following line to your cds.lib file:
 
-    `DEFINE sky130_fd_pr_main ./libs/sky130_fd_pr_main`
+    ```
+    DEFINE sky130_fd_pr_main ./libs/sky130_fd_pr_main
+    ````
 
 6. Execute your shell script again to re-open Cadence Virtuoso. You should now be able to see the sky130_fd_pr_main library in the Library Manager (Tools -> Library Manager).
 
@@ -126,7 +128,7 @@ To set up Pegasus for LVS, there are some additional steps (as of March 2026). T
 ### DRC/LVS Issues
 Below I have tabulated some of the issues that I personally encountered with Pegasus DRC/LVS on SKY130. Other issues likely exist that are not discussed here.
 
-* Some of the default polysilicon resistor standard cells violate DRC. I got around this by generating a polysilicon resistor layout in Magic VLSI (Devices 2 -> poly resistor, sheet resistance depending on whether you are using res_generic, res_high, or res_xhigh), exporting the layout as a .gds file, and importing the .gds file into Cadence Virtuoso. To pass LVS, you can create a schematic cell view for the imported layout that simply uses an existing polysilicon resistor model.
+* Some of the default polysilicon resistor standard cells violate DRC. I got around this by generating a polysilicon resistor layout in Magic VLSI (Devices 2 -> poly resistor, sheet resistance depending on whether you are using res_generic, res_high, or res_xhigh), exporting the layout as a .gds file, and importing the .gds file into Cadence Virtuoso. To pass LVS, you can create a schematic cell view for the imported layout that simply uses an existing polysilicon resistor model. Make sure to add labels to the layout for pins 1, 2, and VSS.
 
     ![](resistor.png)
 
