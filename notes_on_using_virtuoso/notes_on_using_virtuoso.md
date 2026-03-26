@@ -2,6 +2,8 @@
 
 Below are some of my notes on tricks and workarounds that I used for performing analog integrated circuit design for Tiny Tapeout using Cadence Virtuoso with the SKY130 PDK. Please note that following these steps requires significant technical and debugging expertise, because the pipeline for chip design with the SKY130 PDK in Cadence Virtuoso is currently very unstable and is not well-established. I also have not thoroughly tested these steps on a clean environment, so there may be errors.
 
+Please contact me on Discord (@atenfyr) on the Tiny Tapeout Discord server or e-mail me at hello@atenfyr.com if you have any questions or concerns about anything written here.
+
 ### Magic VLSI setup
 
 I used Magic VLSI for initial layout import, LEF export, and occasional workarounds for bad standard cells. The following steps were performed on Ubuntu 24.04 (either WSL or natively should work).
@@ -38,7 +40,7 @@ Note that the following steps do require an existing license and installation of
 2. Upload the downloaded .tgz file(s) to the server that Cadence Virtuoso is installed on, and extract them:
     `tar -xzvf *.tgz`
 
-3. Set up the appropriate shell script within the extracted sky130_release_0.1.0 directory for opening Cadence Virtuoso. This may be based on existing shell scripts for other PDKs. You also need to set a few different variables so that Virtuoso can recognize your copies of Pegasus and Quantus, if installed. For tcsh scripts, you can include the following lines (modified as needed) in your shell script to set up Pegasus and Quantus:
+3. Set up the appropriate shell script within the extracted sky130_release_0.1.0 directory for opening Cadence Virtuoso. This probably should be based on existing shell scripts for other PDKs. You also need to set a few different variables so that Virtuoso can recognize your copies of Pegasus and Quantus, if installed. For tcsh scripts, you can include the following lines (modified as needed) in your shell script to set up Pegasus and Quantus:
 
     ```
     setenv PEGASUS_DRC /path/to/your/sky130_release_0.1.0/Sky130_DRC
@@ -78,7 +80,7 @@ To set up Pegasus for DRC:
 
 3. Under Rules -> Configurator, check "Use Configurator", press the "..." button and select the file at "SKY130_DRC/sky130.drc.cfg" (or similar). For Tiny Tapeout specifically, you may wish to check "Turn Off Density Rules."
 
-4. Press "Submit" to execute a DRC run. In my experience, DRC results from Pegasus are generally accurate. If you would like to sanity check the results, you can export a .gds file of your layout (File -> Export Stream from VM), import into Magic VLSI (within Magic, File -> Read GDS), and choose Drc -> DRC report, at which point you will receive DRC results in the interactive tcl window.
+4. Press "Submit" to execute a DRC run. In my experience, DRC results from Pegasus are consistently accurate. If you would like to sanity check the results, you can export a .gds file of your layout (File -> Export Stream from VM), import into Magic VLSI (within Magic, File -> Read GDS), and choose Drc -> DRC report, at which point you will receive DRC results in the interactive tcl window.
 
 #### Pegasus setup (LVS)
 To set up Pegasus for LVS, there are some additional steps (as of March 2026). These steps are based off of these troubleshooting steps by Andrew Beckett: https://community.cadence.com/cadence_technology_forums/f/custom-ic-design/65351/quantus-error-sky130-qrctechfile-not-recognized-as-valid-technology-file/1406727
@@ -103,7 +105,7 @@ To set up Pegasus for LVS, there are some additional steps (as of March 2026). T
 
 #### Quantus setup (parasitic extraction)
 
-1. Exeecute the steps above for Pegasus setup for LVS.
+1. Execute the steps above for Pegasus setup for LVS.
 
 2. Open the Quantus -> "Run Pegasus - Quantus" menu option within Layout L/XL.
 
@@ -131,14 +133,14 @@ To set up Pegasus for LVS, there are some additional steps (as of March 2026). T
 
 2. Open Magic VLSI and open the .gds file (File -> Read GDS).
 
-3. In the tcl command line interpreter menu, execute `load tt_um_your_project_name` and `lef write tt_um_your_project_name.lef -pinonly`, modified as needed. This command will export the .lef file.
+3. In the tcl command line interpreter menu, execute `load tt_um_your_project_name` and `lef write tt_um_your_project_name.lef -pinonly` (modified as needed to use the actual top-level name of your project). This command will export the .lef file.
 
 4. Place your .lef file and .gds file in your GitHub repository as instructed as https://tinytapeout.com/specs/analog/. Your .lef file may need modifications to pass the automated DRC checks; for me, the only modification needed was the inclusion of the "USE POWER ;" line for the VDPWR pin.
 
 ### DRC/LVS Issues
 Below I have tabulated some of the issues that I personally encountered with Pegasus DRC/LVS on SKY130. Other issues likely exist that are not discussed here.
 
-* Some of the default polysilicon resistor standard cells violate DRC. I got around this by generating a polysilicon resistor layout in Magic VLSI (Devices 2 -> poly resistor, sheet resistance depending on whether you are using res_generic, res_high, or res_xhigh), exporting the layout as a .gds file, and importing the .gds file into Cadence Virtuoso. To pass LVS, you can create a schematic cell view for the imported layout that simply uses an existing polysilicon resistor model. Make sure to add labels to the layout for pins 1, 2, and VSS.
+* Some of the default polysilicon resistor standard cells violate DRC. I got around this by generating a polysilicon resistor layout in Magic VLSI (Devices 2 -> poly resistor, sheet resistance depending on whether you are using res_generic, res_high, or res_xhigh), exporting the layout as a .gds file, and importing the .gds file into Cadence Virtuoso. To pass LVS, you can create a schematic cell view for the imported layout that simply uses an existing polysilicon resistor model. You will need to change the width and length of this model to whatever Pegasus reports the parameters of the layout polysilicon resistor to be to pass LVS. Make sure to add labels to the layout for pins 1, 2, and VSS.
 
     ![](resistor.png)
 
@@ -149,6 +151,6 @@ Below I have tabulated some of the issues that I personally encountered with Peg
         lvs_reduce no -series_caps
     ```
 
-* If you need to tie any unused output pins to GND as directed by the Tiny Tapeout instructions, you should not include equivalent ties to ground in your schematic to pass LVS. In my experience, Pegasus will return "match with warning" when multiple nets are tied together in your layout. These warnings can be ignored (with caution).
+* If you need to tie any unused output pins to VGND as directed by the Tiny Tapeout instructions, you should NOT include equivalent ties to ground in your schematic to pass LVS. In my experience, Pegasus will return "match with warnings" when multiple nets are tied together in your layout. These warnings can be ignored (with caution).
 
-* Note that dummy transistors do need to be drawn in your schematic for the design to pass LVS (at least by default). This is different than with Calibre, where dummy transistors are automatically filtered out and thus do not need to be included in your schematic.
+* Note that dummy transistors DO need to be drawn in your schematic for the design to pass LVS (at least by default). This is different than with Calibre, where dummy transistors are automatically filtered out and thus do not need to be included in your schematic.
